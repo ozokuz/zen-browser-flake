@@ -13,7 +13,8 @@
 
     inherit (lib.trivial) warn;
     inherit (lib.attrsets) genAttrs;
-    inherit (builtins) fromJSON readFile;
+    inherit (lib.strings) split;
+    inherit (builtins) elemAt fromJSON readFile;
 
     systems = ["aarch64-linux" "x86_64-linux"];
     eachSystem = genAttrs systems;
@@ -27,7 +28,7 @@
   in {
     packages = eachSystem (system: {
       zen = mkZen system {
-        src = info.x86_64;
+        src = info."${elemAt (split "-" system) 0}";
         inherit (info) version;
       };
       default = self.packages.${system}.zen;
