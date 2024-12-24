@@ -22,7 +22,7 @@
   sourceInfo,
 }:
 stdenvNoCC.mkDerivation (finalAttrs: {
-  pname = "zen-browser-${sourceInfo.variant}";
+  pname = "zen-browser";
   inherit (sourceInfo) version;
 
   src = fetchurl sourceInfo.src;
@@ -87,6 +87,9 @@ stdenvNoCC.mkDerivation (finalAttrs: {
     description = "Beautiful, fast, private browser";
     license = lib.licenses.mpl20;
     mainProgram = "zen";
-    platforms = ["x86_64-linux"];
+    platforms = [
+      "aarch64-linux"
+      "x86_64-linux"
+    ];
   };
 })
