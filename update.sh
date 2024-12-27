@@ -12,10 +12,10 @@ if [ "$file_exists" -eq 0 ]; then
   oldversion=$(jq -rc '.version' "$info")
 fi
 
-url="https://api.github.com/repos/zen-browser/desktop/releases?per_page=1"
-version="$(curl -s "$url" | jq -rc '.[0].tag_name')"
+url="https://api.github.com/repos/zen-browser/desktop/releases/latest"
+version="$(curl -s "$url" | jq -rc '.tag_name')"
 
-if [ "$oldversion" != "$version" ] && [[ "$version" =~ $regex ]] && [[ "$file_exists" -eq 1 ]]; then
+if [ "$oldversion" != "$version" ] && [[ "$version" =~ $regex ]]; then
   echo "Found new version $version"
   sharedUrl="https://github.com/zen-browser/desktop/releases/download/${version}/zen.linux"
 
